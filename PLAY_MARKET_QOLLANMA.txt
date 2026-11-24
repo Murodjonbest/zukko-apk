@@ -1,0 +1,60 @@
+ZUKKO — GOOGLE PLAY'GA YUKLASH QO'LLANMASI
+==========================================
+
+TAYYOR NARSALAR
+• Android Studio loyihasi (shu papka): targetSdk 35, ilova ID: uz.zukko.app, versiya 1.0.0
+• PlayMarket/ papkasida:
+  - icon-512.png — Play ikonka (512×512)
+  - feature-graphic-1024x500.png — asosiy banner
+  - screenshots/ — 8 ta telefon skrinshoti (1080×2160)
+  - privacy-policy.html — maxfiylik siyosati
+  - DOKON_MATNLARI.txt — nom, qisqa va to'liq tavsif
+
+1-QADAM. Dasturchi hisobi (bir marta)
+  • play.google.com/console → ro'yxatdan o'ting. Bir martalik to'lov 25 $.
+  • Shaxsni tasdiqlash (pasport) talab qilinadi. Bir necha kun olishi mumkin.
+  • MUHIM: yangi SHAXSIY hisoblar uchun Google talabi bor. Ilovani hammaga chiqarishdan oldin
+    kamida 12 ta sinovchi bilan 14 kun "Closed testing" o'tkazish kerak. Tashkilot (yuridik shaxs)
+    hisobida bu talab yo'q. Sinovchilar sifatida tanishlaringizning Gmail manzillarini qo'shasiz.
+
+2-QADAM. Maxfiylik siyosati havolasi
+  • privacy-policy.html ichidagi EMAIL@MANZIL.UZ ni o'z emailingizga almashtiring
+    (shu faylda va app/src/main/assets/privacy.html da).
+  • Faylni ochiq havolaga joylang: Google Sites, GitHub Pages yoki o'z saytingiz.
+    Shu havola Play Console'ga kiritiladi.
+
+3-QADAM. Android Studio'da AAB yasash
+  • Android Studio'ni o'rnating (bepul): developer.android.com/studio
+  • File → Open → shu "Zukko-Play" papkasi. Birinchi ochilishda kerakli qismlarni yuklaydi (10–20 daqiqa).
+  • Build → Generate Signed App Bundle / APK → "Android App Bundle" → Next
+  • "Create new..." bilan kalit (keystore) yarating:
+      - Saqlash joyi: masalan D:\Zukko\zukko-upload.jks
+      - Parolni yozib qo'ying!
+      - Alias: zukko
+  • release → Create. Tayyor fayl: app/release/app-release.aab
+  !!! zukko-upload.jks faylini va parolni yo'qotmang: har bir yangilanish shu kalit bilan imzolanadi.
+      Fleshka yoki bulutga zaxira nusxa oling.
+
+4-QADAM. Play Console'da ilova yaratish
+  • "Create app" → nomi: Zukko → til: O'zbek → App → Free.
+  • Store listing: DOKON_MATNLARI.txt dagi matnlar, ikonka, banner va skrinshotlar.
+  • App content bo'limi:
+      - Privacy policy: 2-qadamdagi havola
+      - Ads: "No, my app does not contain ads"
+      - App access: "All functionality is available without special access"
+      - Content rating: so'rovnomani to'ldiring (zo'ravonlik yo'q, ta'lim). Natija: "3+ / Everyone"
+      - Target audience: 13+ yoki "Barcha yoshlar" (bolalar rejimi bor). Agar 13 yoshdan
+        kichiklarni tanlasangiz, ilova "Families" siyosatiga mos bo'lishi kerak. Zukko bunga mos:
+        reklama yo'q, ma'lumot yig'ilmaydi, internet yo'q.
+      - Data safety: "No data collected", "No data shared". Shifrlash savoliga: "Data is not transmitted".
+      - Government app: No. Financial features: None. Health: No.
+  • Testing → Closed testing → yangi reliz → app-release.aab ni yuklang → sinovchilarni qo'shing.
+  • 14 kundan keyin: Production → "Promote release" → Review uchun yuborish (odatda 1–7 kun).
+
+5-QADAM. Yangilash (keyingi versiyalar)
+  • app/build.gradle da versionCode ni 1 ga oshiring (2, 3, ...), versionName ni yangilang (1.0.1).
+  • 3-qadamdagi kabi AAB yasang, xuddi shu kalit (zukko-upload.jks) bilan imzolang.
+
+TELEFONDA OVOZ VA MIKROFON (foydalanuvchiga maslahat)
+  • Ovoz chiqishi: Sozlamalar → Tizim → Til → Matnni nutqqa (Google TTS) → kerakli til ovozini yuklab oling.
+  • Internetsiz mikrofon: Google ilovasi → Sozlamalar → Ovoz → Oflayn nutqni tanish → til paketini yuklab oling.

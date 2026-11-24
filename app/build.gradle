@@ -1,0 +1,43 @@
+plugins { id 'com.android.application' }
+
+// Upload key for Google Play: create keystore.properties next to this project's root
+// (see PLAY_MARKET_QOLLANMA.txt). Without it, release builds are left unsigned.
+def ksFile = rootProject.file('keystore.properties')
+def ks = new Properties()
+if (ksFile.exists()) ks.load(new FileInputStream(ksFile))
+
+android {
+    namespace 'uz.zukko.app'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'uz.zukko.app'
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+    }
+    signingConfigs {
+        release {
+            if (ksFile.exists()) {
+                storeFile rootProject.file(ks['storeFile'])
+                storePassword ks['storePassword']
+                keyAlias ks['keyAlias']
+                keyPassword ks['keyPassword']
+            } else {
+                // Default key kept in the repo so every new APK installs over the previous one.
+                storeFile file('zukko.jks')
+                storePassword 'zukko2026'
+                keyAlias 'zukko'
+                keyPassword 'zukko2026'
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    androidResources { noCompress 'json', 'woff2' }
+}
